@@ -6,8 +6,10 @@ target 'MessagingApp' do
   use_frameworks!
 
   # Pods for MessagingApp
-pod 'XMPPFramework'
+pod 'XMPPFramework/Swift'
 pod 'NoChat', '~> 0.3'
+pod 'YYText'
+pod 'HPGrowingTextView'
 
   target 'MessagingAppUITests' do
     inherit! :search_paths

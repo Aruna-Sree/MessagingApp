@@ -8,6 +8,22 @@
 
 /* Begin PBXBuildFile section */
 		73ACCA80C02ABCA428CCC613 /* Pods_MessagingAppUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BB2D74BCC9A4B08C9B464D7E /* Pods_MessagingAppUITests.framework */; };
+		9A21EDCA215A8D750042F917 /* ChatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A21EDC9215A8D750042F917 /* ChatViewController.swift */; };
+		9A21EDCD215A8EC20042F917 /* Chat.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A21EDCC215A8EC20042F917 /* Chat.swift */; };
+		9A21EDCF215A8ECC0042F917 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A21EDCE215A8ECC0042F917 /* Message.swift */; };
+		9A21EDE1215A8FB80042F917 /* TGBaseMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A21EDD4215A8FB70042F917 /* TGBaseMessageCell.swift */; };
+		9A21EDE2215A8FB80042F917 /* TGTextMessageCellLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A21EDD5215A8FB80042F917 /* TGTextMessageCellLayout.swift */; };
+		9A21EDE3215A8FB80042F917 /* TGChatInputTextPanel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A21EDD6215A8FB80042F917 /* TGChatInputTextPanel.swift */; };
+		9A21EDE5215A8FB80042F917 /* TGDateMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A21EDD8215A8FB80042F917 /* TGDateMessageCell.swift */; };
+		9A21EDE6215A8FB80042F917 /* TGBaseMessageCellLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A21EDD9215A8FB80042F917 /* TGBaseMessageCellLayout.swift */; };
+		9A21EDE7215A8FB80042F917 /* TGSystemMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A21EDDA215A8FB80042F917 /* TGSystemMessageCell.swift */; };
+		9A21EDE8215A8FB80042F917 /* TGDateMessageCellLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A21EDDB215A8FB80042F917 /* TGDateMessageCellLayout.swift */; };
+		9A21EDE9215A8FB80042F917 /* TGDeliveryStatusView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A21EDDC215A8FB80042F917 /* TGDeliveryStatusView.swift */; };
+		9A21EDEA215A8FB80042F917 /* TGSystemMessageCellLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A21EDDD215A8FB80042F917 /* TGSystemMessageCellLayout.swift */; };
+		9A21EDEB215A8FB80042F917 /* TGTextMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A21EDDE215A8FB80042F917 /* TGTextMessageCell.swift */; };
+		9A21EDEC215A8FB80042F917 /* TGClockProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A21EDDF215A8FB80042F917 /* TGClockProgressView.swift */; };
+		9A21EDEF215A91BB0042F917 /* UserChatMessage+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A21EDED215A91BB0042F917 /* UserChatMessage+CoreDataClass.swift */; };
+		9A21EDF0215A91BB0042F917 /* UserChatMessage+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A21EDEE215A91BB0042F917 /* UserChatMessage+CoreDataProperties.swift */; };
 		9A4629082159E71600A052F1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4629072159E71600A052F1 /* AppDelegate.swift */; };
 		9A46290A2159E71600A052F1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4629092159E71600A052F1 /* ViewController.swift */; };
 		9A46290D2159E71600A052F1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A46290B2159E71600A052F1 /* Main.storyboard */; };
@@ -38,6 +54,22 @@
 /* Begin PBXFileReference section */
 		23506A8412CF4AAB3BDDEC4D /* Pods-MessagingApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MessagingApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MessagingApp/Pods-MessagingApp.debug.xcconfig"; sourceTree = "<group>"; };
 		3D87511EFCE7A5566778994F /* Pods-MessagingAppUITests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-MessagingAppUITests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-MessagingAppUITests/Pods-MessagingAppUITests.debug.xcconfig"; sourceTree = "<group>"; };
+		9A21EDC9215A8D750042F917 /* ChatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatViewController.swift; sourceTree = "<group>"; };
+		9A21EDCC215A8EC20042F917 /* Chat.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Chat.swift; sourceTree = "<group>"; };
+		9A21EDCE215A8ECC0042F917 /* Message.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		9A21EDD4215A8FB70042F917 /* TGBaseMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TGBaseMessageCell.swift; sourceTree = "<group>"; };
+		9A21EDD5215A8FB80042F917 /* TGTextMessageCellLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TGTextMessageCellLayout.swift; sourceTree = "<group>"; };
+		9A21EDD6215A8FB80042F917 /* TGChatInputTextPanel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TGChatInputTextPanel.swift; sourceTree = "<group>"; };
+		9A21EDD8215A8FB80042F917 /* TGDateMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TGDateMessageCell.swift; sourceTree = "<group>"; };
+		9A21EDD9215A8FB80042F917 /* TGBaseMessageCellLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TGBaseMessageCellLayout.swift; sourceTree = "<group>"; };
+		9A21EDDA215A8FB80042F917 /* TGSystemMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TGSystemMessageCell.swift; sourceTree = "<group>"; };
+		9A21EDDB215A8FB80042F917 /* TGDateMessageCellLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TGDateMessageCellLayout.swift; sourceTree = "<group>"; };
+		9A21EDDC215A8FB80042F917 /* TGDeliveryStatusView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TGDeliveryStatusView.swift; sourceTree = "<group>"; };
+		9A21EDDD215A8FB80042F917 /* TGSystemMessageCellLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TGSystemMessageCellLayout.swift; sourceTree = "<group>"; };
+		9A21EDDE215A8FB80042F917 /* TGTextMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TGTextMessageCell.swift; sourceTree = "<group>"; };
+		9A21EDDF215A8FB80042F917 /* TGClockProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TGClockProgressView.swift; sourceTree = "<group>"; };
+		9A21EDED215A91BB0042F917 /* UserChatMessage+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserChatMessage+CoreDataClass.swift"; sourceTree = "<group>"; };
+		9A21EDEE215A91BB0042F917 /* UserChatMessage+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserChatMessage+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9A4629042159E71600A052F1 /* MessagingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MessagingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A4629072159E71600A052F1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9A4629092159E71600A052F1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -91,6 +123,33 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		9A21EDCB215A8EB50042F917 /* ChatModels */ = {
+			isa = PBXGroup;
+			children = (
+				9A21EDCE215A8ECC0042F917 /* Message.swift */,
+				9A21EDCC215A8EC20042F917 /* Chat.swift */,
+			);
+			path = ChatModels;
+			sourceTree = "<group>";
+		};
+		9A21EDD2215A8F990042F917 /* NoChatPresenters */ = {
+			isa = PBXGroup;
+			children = (
+				9A21EDD4215A8FB70042F917 /* TGBaseMessageCell.swift */,
+				9A21EDD9215A8FB80042F917 /* TGBaseMessageCellLayout.swift */,
+				9A21EDD6215A8FB80042F917 /* TGChatInputTextPanel.swift */,
+				9A21EDDF215A8FB80042F917 /* TGClockProgressView.swift */,
+				9A21EDD8215A8FB80042F917 /* TGDateMessageCell.swift */,
+				9A21EDDB215A8FB80042F917 /* TGDateMessageCellLayout.swift */,
+				9A21EDDC215A8FB80042F917 /* TGDeliveryStatusView.swift */,
+				9A21EDDA215A8FB80042F917 /* TGSystemMessageCell.swift */,
+				9A21EDDD215A8FB80042F917 /* TGSystemMessageCellLayout.swift */,
+				9A21EDDE215A8FB80042F917 /* TGTextMessageCell.swift */,
+				9A21EDD5215A8FB80042F917 /* TGTextMessageCellLayout.swift */,
+			);
+			path = NoChatPresenters;
+			sourceTree = "<group>";
+		};
 		9A4628FB2159E71600A052F1 = {
 			isa = PBXGroup;
 			children = (
@@ -114,6 +173,8 @@
 		9A4629062159E71600A052F1 /* MessagingApp */ = {
 			isa = PBXGroup;
 			children = (
+				9A21EDD2215A8F990042F917 /* NoChatPresenters */,
+				9A21EDCB215A8EB50042F917 /* ChatModels */,
 				9A462943215A158A00A052F1 /* XMPP */,
 				9A46293B2159F9BD00A052F1 /* Constants */,
 				9A4629372159EF5F00A052F1 /* Database */,
@@ -121,6 +182,7 @@
 				9A4629072159E71600A052F1 /* AppDelegate.swift */,
 				9A4629392159F25200A052F1 /* LoginViewController.swift */,
 				9A4629092159E71600A052F1 /* ViewController.swift */,
+				9A21EDC9215A8D750042F917 /* ChatViewController.swift */,
 				9A46290B2159E71600A052F1 /* Main.storyboard */,
 				9A4629112159E71700A052F1 /* Assets.xcassets */,
 				9A4629132159E71700A052F1 /* LaunchScreen.storyboard */,
@@ -151,6 +213,8 @@
 		9A4629382159EF6B00A052F1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				9A21EDED215A91BB0042F917 /* UserChatMessage+CoreDataClass.swift */,
+				9A21EDEE215A91BB0042F917 /* UserChatMessage+CoreDataProperties.swift */,
 				9A4629332159EE7200A052F1 /* User+CoreDataClass.swift */,
 				9A4629342159EE7200A052F1 /* User+CoreDataProperties.swift */,
 			);
@@ -319,17 +383,23 @@
 				"${SRCROOT}/Pods/Target Support Files/Pods-MessagingApp/Pods-MessagingApp-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/CocoaAsyncSocket/CocoaAsyncSocket.framework",
 				"${BUILT_PRODUCTS_DIR}/CocoaLumberjack/CocoaLumberjack.framework",
+				"${BUILT_PRODUCTS_DIR}/HPGrowingTextView/HPGrowingTextView.framework",
 				"${BUILT_PRODUCTS_DIR}/KissXML/KissXML.framework",
 				"${BUILT_PRODUCTS_DIR}/NoChat/NoChat.framework",
 				"${BUILT_PRODUCTS_DIR}/XMPPFramework/XMPPFramework.framework",
+				"${BUILT_PRODUCTS_DIR}/YYText/YYText.framework",
+				"${BUILT_PRODUCTS_DIR}/libidn/libidn.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaAsyncSocket.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/CocoaLumberjack.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HPGrowingTextView.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/KissXML.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NoChat.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/XMPPFramework.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/YYText.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/libidn.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -362,15 +432,31 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A46293A2159F25200A052F1 /* LoginViewController.swift in Sources */,
+				9A21EDCD215A8EC20042F917 /* Chat.swift in Sources */,
 				9A462940215A0AD900A052F1 /* ChatsTableViewCell.swift in Sources */,
+				9A21EDCA215A8D750042F917 /* ChatViewController.swift in Sources */,
 				9A46290A2159E71600A052F1 /* ViewController.swift in Sources */,
+				9A21EDEA215A8FB80042F917 /* TGSystemMessageCellLayout.swift in Sources */,
 				9A462942215A158100A052F1 /* ChatManager.swift in Sources */,
+				9A21EDE7215A8FB80042F917 /* TGSystemMessageCell.swift in Sources */,
 				9A4629082159E71600A052F1 /* AppDelegate.swift in Sources */,
+				9A21EDE9215A8FB80042F917 /* TGDeliveryStatusView.swift in Sources */,
 				9A462947215A1A6D00A052F1 /* DBManager.swift in Sources */,
 				9A4629352159EE7200A052F1 /* User+CoreDataClass.swift in Sources */,
+				9A21EDF0215A91BB0042F917 /* UserChatMessage+CoreDataProperties.swift in Sources */,
+				9A21EDE5215A8FB80042F917 /* TGDateMessageCell.swift in Sources */,
+				9A21EDE3215A8FB80042F917 /* TGChatInputTextPanel.swift in Sources */,
+				9A21EDEB215A8FB80042F917 /* TGTextMessageCell.swift in Sources */,
+				9A21EDEF215A91BB0042F917 /* UserChatMessage+CoreDataClass.swift in Sources */,
+				9A21EDCF215A8ECC0042F917 /* Message.swift in Sources */,
 				9A46293D2159F9D000A052F1 /* Constants.swift in Sources */,
+				9A21EDE8215A8FB80042F917 /* TGDateMessageCellLayout.swift in Sources */,
+				9A21EDE6215A8FB80042F917 /* TGBaseMessageCellLayout.swift in Sources */,
+				9A21EDE1215A8FB80042F917 /* TGBaseMessageCell.swift in Sources */,
+				9A21EDEC215A8FB80042F917 /* TGClockProgressView.swift in Sources */,
 				9A4629362159EE7200A052F1 /* User+CoreDataProperties.swift in Sources */,
 				9A4629102159E71600A052F1 /* MessagingApp.xcdatamodeld in Sources */,
+				9A21EDE2215A8FB80042F917 /* TGTextMessageCellLayout.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

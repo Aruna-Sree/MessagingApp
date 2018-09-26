@@ -17,7 +17,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        
+        setRootViewControllerForWindow()
+        self.window?.makeKeyAndVisible()
+        return true
+    }
+
+    func setRootViewControllerForWindow() {
         if UserDefaults.standard.bool(forKey: Constants.Authentication.logged) {
             let navVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "NavigationController") as! UINavigationController
             self.window?.rootViewController = navVC
@@ -27,10 +32,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             let loginVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "LoginViewController") as! LoginViewController
             self.window?.rootViewController = loginVC
         }
-        self.window?.makeKeyAndVisible()
-        return true
     }
-
     func applicationWillResignActive(_ application: UIApplication) {
         // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
         // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.

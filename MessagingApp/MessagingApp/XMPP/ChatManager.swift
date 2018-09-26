@@ -9,15 +9,6 @@
 import UIKit
 import XMPPFramework
 
-/**
- Extension for NSNotification.Name to represent XMPP Communication details
- */
-public extension NSNotification.Name {
-    public struct GetListOfUsersNotification {
-        public static let didGetUsers = NSNotification.Name("GetListOfUsersNotificationDidGetUsers")
-    }
-}
-
 /// Singleton class to handle all the XMPP Communication
 class ChatManager: NSObject,XMPPStreamDelegate,XMPPRosterDelegate {
 
@@ -38,8 +29,8 @@ class ChatManager: NSObject,XMPPStreamDelegate,XMPPRosterDelegate {
     var currentPassword: String?
     
     private override init() {
-        xmppStream?.hostName = Constants.Configuration.host
-        xmppStream?.hostPort = Constants.Configuration.port
+        xmppStream.hostName = Constants.Configuration.host
+        xmppStream.hostPort = Constants.Configuration.port
         xmppRoster = XMPPRoster(rosterStorage: xmppRoosterStorage)
     }
     
@@ -48,13 +39,13 @@ class ChatManager: NSObject,XMPPStreamDelegate,XMPPRosterDelegate {
         currentUserName = userName
         currentPassword = pwd
         xmppRoster?.activate(xmppStream)
-        xmppStream?.addDelegate(self, delegateQueue: DispatchQueue.main)
+        xmppStream.addDelegate(self, delegateQueue: DispatchQueue.main)
         xmppRoster?.addDelegate(self, delegateQueue: DispatchQueue.main)
         
         connect()
         
-        xmppvCardTempModule = XMPPvCardTempModule.init(vCardStorage: xmppvCardStorage)
-        xmppvCardAvatarModule = XMPPvCardAvatarModule.init(vCardTempModule: xmppvCardTempModule)
+        xmppvCardTempModule = XMPPvCardTempModule.init(vCardStorage: xmppvCardStorage!)
+        xmppvCardAvatarModule = XMPPvCardAvatarModule.init(vCardTempModule: xmppvCardTempModule!)
     }
     
     private func goOnline() {
@@ -65,31 +56,31 @@ class ChatManager: NSObject,XMPPStreamDelegate,XMPPRosterDelegate {
 //            let priority = DDXMLElement.elementWithName("priority", stringValue: "24") as! DDXMLElement
 //            presence.addChild(priority)
 //        }
-        xmppStream?.send(presence)
+        xmppStream.send(presence)
     }
     
     private func goOffline() {
         let presence = XMPPPresence(type: "unavailable")
-        xmppStream?.send(presence)
+        xmppStream.send(presence)
     }
     
     // MARK: Connection
     func connect() -> Bool {
-        if !(xmppStream?.isConnected())! {
+        if !(xmppStream.isConnected) {
             let jabberID = currentUserName
             let myPassword = currentPassword
             
-            if !(xmppStream?.isDisconnected())! {
+            if !(xmppStream.isDisconnected) {
                 return true
             }
             if jabberID == nil && myPassword == nil {
                 return false
             }
             
-            xmppStream?.myJID = XMPPJID(string: jabberID)
+            xmppStream.myJID = XMPPJID(string: jabberID!)
             
             do {
-                try xmppStream?.connect(withTimeout: XMPPStreamTimeoutNone)
+                try xmppStream.connect(withTimeout: XMPPStreamTimeoutNone)
                 print("Connection success")
                 return true
             } catch {
@@ -103,24 +94,24 @@ class ChatManager: NSObject,XMPPStreamDelegate,XMPPRosterDelegate {
     
     func disconnect() {
         goOffline()
-        xmppStream?.disconnect()
+        xmppStream.disconnect()
     }
     
-    func xmppStreamDidConnect(_ sender: XMPPStream!) {
+    func xmppStreamDidConnect(_ sender: XMPPStream) {
         print("connected!")
         do {
-            try sender.authenticate(withPassword: currentPassword)
+            try sender.authenticate(withPassword: currentPassword!)
         } catch {
             print("error registering")
         }
     }
     
-    func xmppStreamDidDisconnect(_ sender: XMPPStream!, withError error: Error!) {
+    func xmppStreamDidDisconnect(_ sender: XMPPStream, withError error: Error?) {
         print("Disconnected")
     }
     
     // MARK: Authentication
-    func xmppStreamDidAuthenticate(_ sender: XMPPStream!) {
+    func xmppStreamDidAuthenticate(_ sender: XMPPStream) {
         print("Authentication finished")
         
         goOnline()
@@ -136,12 +127,12 @@ class ChatManager: NSObject,XMPPStreamDelegate,XMPPRosterDelegate {
     func getAllRegisteredUsers() {
         let query = try? XMLElement(xmlString: "<query xmlns='http://jabber.org/protocol/disco#items' node='all users'/>")
         //        let query = try? XMLElement(xmlString: "<query xmlns='jabber:iq:roster'/>")
-        let iq = XMPPIQ(type: "get", to: XMPPJID(string: currentUserName), elementID: xmppStream?.generateUUID(), child: query)
-        xmppStream?.send(iq)
+        let iq = XMPPIQ(type: "get", to: XMPPJID(string: currentUserName!), elementID: xmppStream.generateUUID, child: query)
+        xmppStream.send(iq)
     }
     
-    func xmppStream(_ sender: XMPPStream!, didReceive iq: XMPPIQ!) -> Bool {
-        let elementName : [XMLElement] = iq.elements(forXmlns: "jabber:iq:roster") as! [XMLElement]
+    func xmppStream(_ sender: XMPPStream, didReceive iq: XMPPIQ) -> Bool {
+        let elementName : [XMLElement] = iq.elements(forXmlns: "jabber:iq:roster")
         if elementName.count > 0 {
             let itemsList: [DDXMLElement] = elementName[0].elements(forName: "item")
             for item in itemsList {
@@ -154,12 +145,11 @@ class ChatManager: NSObject,XMPPStreamDelegate,XMPPRosterDelegate {
                     if (item.attribute(forName: "name") != nil) {
                         user?.name = (item.attribute(forName: "name")?.stringValue)!
                     }
-                    let imageData = self.xmppvCardAvatarModule?.photoData(for: XMPPJID(string: jid))
+                    let imageData = self.xmppvCardAvatarModule?.photoData(for: XMPPJID(string: jid)!)
                     if (imageData != nil) {
                         user?.image = imageData! as NSData
                     }
                     DBManager.shared.updateUser(user: user!)
-                    NotificationCenter.default.post(name: NSNotification.Name.GetListOfUsersNotification.didGetUsers, object: nil)
                 }
             }
         }
@@ -167,36 +157,48 @@ class ChatManager: NSObject,XMPPStreamDelegate,XMPPRosterDelegate {
     }
     
     // MARK: Message recieve/send
-    func xmppStream(_ sender: XMPPStream!, didReceive message: XMPPMessage!) {
-        print("Stream received message\n",message)
+    func xmppStream(_ sender: XMPPStream, didReceive message: XMPPMessage) {
+        print("received message Stream")
+        print(message)
+        DispatchQueue.main.async {
+            DBManager.shared.addNewChatMessageIntoDB(isFromCurrentUser: false, message: message)
+        }
     }
     
-    func xmppStream(_ sender: XMPPStream!, didSend message: XMPPMessage!) {
+    func xmppStream(_ sender: XMPPStream, didSend message: XMPPMessage) {
         print("Message sent\n", message)
+        print(message)
+        DispatchQueue.main.async {
+            DBManager.shared.addNewChatMessageIntoDB(isFromCurrentUser: true, message: message)
+        }
     }
     
-    func xmppRoster(_ sender: XMPPRoster!, didReceiveRosterItem item: DDXMLElement!) {
+    func xmppStream(_ sender: XMPPStream, didFailToSend message: XMPPMessage, error: Error) {
+        print("Failed to send message")
+    }
+    
+    func xmppRoster(_ sender: XMPPRoster, didReceiveRosterItem item: DDXMLElement) {
         print("received roster item\n", item)
     }
     
-    func xmppStream(_ sender: XMPPStream!, didReceive presence: XMPPPresence!) {
+    func xmppStream(_ sender: XMPPStream, didReceive presence: XMPPPresence) {
         print("presence received\n", presence)
-        let presenceType = presence.type()
+        let presenceType = presence.type
         
         if presenceType == "subscribe" {
-            xmppRoster?.subscribePresence(toUser: presence.from())
-            xmppRoster?.acceptPresenceSubscriptionRequest(from: presence.from(), andAddToRoster: true)
+            xmppRoster?.subscribePresence(toUser: presence.from!)
+            xmppRoster?.acceptPresenceSubscriptionRequest(from: presence.from!, andAddToRoster: true)
             // Probably a friend request
         } else {
             DispatchQueue.main.async {
-                let jid = (String(presence.fromStr().split(separator: "/")[0])) as String
+                let jid = presence.from?.bare //(String(presence.fromStr().split(separator: "/")[0])) as String
                 if jid != self.currentUserName {
-                    var user = DBManager.shared.getUserWithJid(jid: jid)
+                    var user = DBManager.shared.getUserWithJid(jid: jid!)
                     if user == nil {
-                        user = DBManager.shared.addNewUserIntoDB(jid: jid)
+                        user = DBManager.shared.addNewUserIntoDB(jid: jid!)
                     }
-                    user?.name = (presence.from().user)!
-                    let imageData = self.xmppvCardAvatarModule?.photoData(for: XMPPJID(string: jid))
+                    user?.name = presence.from?.user
+                    let imageData = self.xmppvCardAvatarModule?.photoData(for: XMPPJID(string: jid!)!)
                     if (imageData != nil) {
                         user?.image = imageData! as NSData
                     }
@@ -206,21 +208,18 @@ class ChatManager: NSObject,XMPPStreamDelegate,XMPPRosterDelegate {
                         user?.status = 0
                     }
                     DBManager.shared.updateUser(user: user!)
-                    NotificationCenter.default.post(name: NSNotification.Name.GetListOfUsersNotification.didGetUsers, object: nil)
                 }
             }
-            print(presence.type)
         }
     }
     
     // Send Message
     func sendTextMessageToUser(jid:String, body: String) {
-        let user = XMPPJID(string: jid) //"testin1@im.koderoot.net"
         let msg = XMPPMessage(name: "message")//(type: "chat", to: user)
         msg.addAttribute(withName: "type", stringValue: "chat")
         msg.addAttribute(withName: "to", stringValue: jid)
         msg.addBody(body)
-        xmppStream?.send(msg)
+        xmppStream.send(msg)
     }
 
 }
