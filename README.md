@@ -1,6 +1,9 @@
 # MessagingApp
 Sample chat application with XMPP and NoChat frameworks
 
+![alt text](screenshots/1.PNG "ContactsList") 
+![alt text](screenshots/2.PNG "ChatView")
+
 ## Pre-requisites
 * Xcode 10.0 or higher
 * Cocoapods
@@ -15,7 +18,7 @@ Sample chat application with XMPP and NoChat frameworks
 
 ## Features
 * Login
-* Shows the list of friends with their avalability and recent message with time
+* Shows the list of friends.Showing the presence of the friends online/offline with green/gray dot over profile pic and recent message with time
 * Can send text message to a friend
 * Has message history for each of the friends
 * Logout
