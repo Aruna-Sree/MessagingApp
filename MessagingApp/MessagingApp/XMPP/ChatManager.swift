@@ -184,10 +184,14 @@ class ChatManager: NSObject,XMPPStreamDelegate,XMPPRosterDelegate {
         DispatchQueue.main.async {
             if message.elementID != nil {
                 let chatMessage = DBManager.shared.getChatMessageWithMessageId(meesageId: message.elementID!)
-                if chatMessage?.deliveryStatus != Constants.MessageDeliveryStatus.Read.rawValue {
+                if (message.to?.bare)! == chatMessage?.fromUser {
+                    // Message read status
+                    chatMessage?.deliveryStatus = Constants.MessageDeliveryStatus.Read.rawValue
+                } else {
                     chatMessage?.deliveryStatus = Constants.MessageDeliveryStatus.Delivered.rawValue
-                    try! DBManager.shared.context?.save()
+
                 }
+                try! DBManager.shared.context?.save()
             }
         }
     }
@@ -256,8 +260,5 @@ class ChatManager: NSObject,XMPPStreamDelegate,XMPPRosterDelegate {
         msg.addAttribute(withName: "to", stringValue: message.fromUser!)
         msg.addChatState(XMPPMessage.ChatState.active)
         xmppStream.send(msg)
-
-        message.deliveryStatus = Constants.MessageDeliveryStatus.Read.rawValue
-        try! DBManager.shared.context?.save()
     }
 }
