@@ -22,7 +22,8 @@ class ChatViewController: NOCChatViewController ,TGChatInputTextPanelDelegate {
 
         if let chatsList = DBManager.shared.getAllChatMessagesFromUser(fromUserJid: (fromUser?.jid)!) {
             listOfChats = chatsList
-            self.addMessages(listOfChats, scrollToBottom: true, animated: true)
+            self.addMessages(listOfChats, scrollToBottom: true, animated: false)
+            sendReadStatusOfMessageToUser()
         }
         if let managedObjectContext = DBManager.shared.context {
             // Add Observer
@@ -36,12 +37,17 @@ class ChatViewController: NOCChatViewController ,TGChatInputTextPanelDelegate {
         if let inserts = userInfo[NSInsertedObjectsKey] as? Set<NSManagedObject>, inserts.count > 0 {
             print("--- INSERTS ---")
             print(inserts)
+            var listofNewChats:[UserChatMessage] = []
             for insert in inserts {
                 if insert.isKind(of: UserChatMessage.self) {
                     listOfChats.append(insert as! UserChatMessage)
+                    listofNewChats.append(insert as! UserChatMessage)
                 }
             }
-            self.addMessages(listOfChats, scrollToBottom: true, animated: false)
+            if listofNewChats.count > 0 {
+                self.addMessages(listofNewChats, scrollToBottom: true, animated: false)
+                sendReadStatusOfMessageToUser()
+            }
         }
         
         if let updates = userInfo[NSUpdatedObjectsKey] as? Set<NSManagedObject>, updates.count > 0 {
@@ -50,6 +56,18 @@ class ChatViewController: NOCChatViewController ,TGChatInputTextPanelDelegate {
                 print(update.changedValues())
             }
             print("+++++++++++++++")
+            var listofUpdatedIndexs:[Int] = []
+            for update in updates {
+                if update.isKind(of: UserChatMessage.self) {
+                    let index = listOfChats.index(of: update as! UserChatMessage)
+                    listOfChats[index!] = update as! UserChatMessage
+                    listofUpdatedIndexs.append(index!)
+                }
+            }
+            if listofUpdatedIndexs.count > 0 {
+                self.updateMessagesLayout(indexs: listofUpdatedIndexs)
+                sendReadStatusOfMessageToUser()
+            }
         }
         
         if let deletes = userInfo[NSDeletedObjectsKey] as? Set<NSManagedObject>, deletes.count > 0 {
@@ -93,6 +111,18 @@ class ChatViewController: NOCChatViewController ,TGChatInputTextPanelDelegate {
         collectionView?.register(TGSystemMessageCell.self, forCellWithReuseIdentifier: TGSystemMessageCell.reuseIdentifier())
     }
     
+    private func updateMessagesLayout(indexs: [Int] ) {
+        layoutQueue.async { [weak self] in
+            guard let strongSelf = self else { return }
+            let cellLayouts = strongSelf.cellLayouts()
+            DispatchQueue.main.async {
+                for index in indexs {
+                    let layout : NOCChatItemCellLayout = cellLayouts[index]
+                    strongSelf.updateLayout(at: UInt(index), to: layout, animated: false)
+                }
+            }
+        }
+    }
     
     private func addMessages(_ messages: [UserChatMessage], scrollToBottom: Bool, animated: Bool) {
         layoutQueue.async { [weak self] in
@@ -120,6 +150,15 @@ class ChatViewController: NOCChatViewController ,TGChatInputTextPanelDelegate {
             ChatManager.shared.sendTextMessageToUser(jid: theUser.jid!, body: text)
         }
     }
+    
+    func sendReadStatusOfMessageToUser() {
+        for userchat in listOfChats {
+            if userchat.fromUser != ChatManager.shared.currentUserName && userchat.deliveryStatus != Constants.MessageDeliveryStatus.Read.rawValue {
+                ChatManager.shared.sendTextMessageAsRead(message: userchat)
+            }
+        }
+    }
+    
     /*
     // MARK: - Navigation
 

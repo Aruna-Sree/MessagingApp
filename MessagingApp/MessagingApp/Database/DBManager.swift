@@ -86,31 +86,61 @@ class DBManager: NSObject {
     }
     
     /// Add UserChatMessage to DB
-    func addNewChatMessageIntoDB(isFromCurrentUser: Bool, message: XMPPMessage) {
+    func addSendingMessageIntoDB(messageId: String, message: XMPPMessage) {
         let chatMessage = UserChatMessage(entity: NSEntityDescription.entity(forEntityName: "UserChatMessage", in: self.context!)!, insertInto: self.context!)
-        chatMessage.messageId = UUID().uuidString
-        chatMessage.deliverStatus = ""
-        chatMessage.isRead = true
-        chatMessage.sentDate = Date() as NSDate
-        if isFromCurrentUser {
-            chatMessage.fromUser = ChatManager.shared.currentUserName!
-            chatMessage.toUser = (message.to?.bare)!
-            chatMessage.isOutgoing = true
-        } else {
-            chatMessage.fromUser = (message.from?.bare)!
-            chatMessage.toUser = ChatManager.shared.currentUserName!
-            chatMessage.isOutgoing = false
-            chatMessage.receivedDate = Date() as NSDate
+        chatMessage.messageId = messageId
+        chatMessage.deliveryStatus = Constants.MessageDeliveryStatus.Delivering.rawValue
+        chatMessage.date = Date() as NSDate
+        chatMessage.fromUser = ChatManager.shared.currentUserName!
+        chatMessage.toUser = (message.to?.bare)!
+        chatMessage.message = message.body!
+        chatMessage.isOutgoing = true
+        
+        let fromUser = self.getUserWithJid(jid: chatMessage.fromUser!)
+        fromUser?.lastMessage = chatMessage.message
+        fromUser?.lastMessageDate = chatMessage.date
+        
+        let toUser = self.getUserWithJid(jid: chatMessage.toUser!)
+        toUser?.lastMessage = chatMessage.message
+        toUser?.lastMessageDate = chatMessage.date
+        do {
+            try self.context?.save()
+        } catch {
+            print("Failed saving")
         }
+    }
+    func getChatMessageWithMessageId(meesageId: String) -> UserChatMessage? {
+        let request = NSFetchRequest<NSFetchRequestResult>(entityName: "UserChatMessage")
+        request.predicate = NSPredicate(format: "messageId = %@", meesageId)
+        request.returnsObjectsAsFaults = false
+        do {
+            let list = try context?.fetch(request) as! [UserChatMessage]
+            if list.count > 0 {
+                return list[0]
+            }
+        } catch {
+            print("Failed")
+        }
+        return nil
+    }
+    
+    func addNewChatMessageIntoDB(message: XMPPMessage) {
+        let chatMessage = UserChatMessage(entity: NSEntityDescription.entity(forEntityName: "UserChatMessage", in: self.context!)!, insertInto: self.context!)
+        chatMessage.messageId = message.elementID
+        chatMessage.deliveryStatus = Constants.MessageDeliveryStatus.Delivered.rawValue
+        chatMessage.date = Date() as NSDate
+        chatMessage.fromUser = (message.from?.bare)!
+        chatMessage.toUser = ChatManager.shared.currentUserName!
+        chatMessage.isOutgoing = false
         chatMessage.message = message.body!
         
         let fromUser = self.getUserWithJid(jid: chatMessage.fromUser!)
         fromUser?.lastMessage = chatMessage.message
-        fromUser?.lastMessageDate = chatMessage.sentDate
+        fromUser?.lastMessageDate = chatMessage.date
         
         let toUser = self.getUserWithJid(jid: chatMessage.toUser!)
         toUser?.lastMessage = chatMessage.message
-        toUser?.lastMessageDate = chatMessage.sentDate
+        toUser?.lastMessageDate = chatMessage.date
         do {
             try self.context?.save()
         } catch {

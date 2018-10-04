@@ -74,7 +74,7 @@ class TGTextMessageCellLayout: TGBaseMessageCellLayout {
             
             let highlight = YYTextHighlight()
             highlight.setBackgroundBorder(highlightBorder)
-            highlight.userInfo = ["command": text]
+            highlight.userInfo = ["command": text ?? ""]
             
             attributedText.yy_setTextHighlight(highlight, range: attributedText.yy_rangeOfAll())
         }
@@ -83,7 +83,7 @@ class TGTextMessageCellLayout: TGBaseMessageCellLayout {
     }
     
     private func setupAttributedTime() {
-        let timeString = Style.timeFormatter.string(from: (message.sentDate! as Date))
+        let timeString = Style.timeFormatter.string(from: (message.date! as Date))
         let timeColor = isOutgoing ? Style.outgoingTimeColor : Style.incomingTimeColor
         attributedTime = NSAttributedString(string: timeString, attributes: [NSAttributedStringKey.font: Style.timeFont, NSAttributedStringKey.foregroundColor: timeColor])
 //        NSAttributedString(string: timeString, attributes: [NSFontAttri])
@@ -126,7 +126,7 @@ class TGTextMessageCellLayout: TGBaseMessageCellLayout {
         let timeLabelWidth = timeLabelSize.width
         let timeLabelHeight = CGFloat(15)
         
-        let deliveryStatusWidth: CGFloat = (isOutgoing && (message.deliveryStatus) != .Failure) ? 15 : 0
+        let deliveryStatusWidth: CGFloat = (isOutgoing && (message.deliveryStatus) != Constants.MessageDeliveryStatus.Failure.rawValue) ? 15 : 0
         let deliveryStatusHeight = deliveryStatusWidth
         
         let hPadding = CGFloat(8)

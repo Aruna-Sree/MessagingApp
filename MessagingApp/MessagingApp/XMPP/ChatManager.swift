@@ -161,7 +161,20 @@ class ChatManager: NSObject,XMPPStreamDelegate,XMPPRosterDelegate {
         print("received message Stream")
         print(message)
         DispatchQueue.main.async {
-            DBManager.shared.addNewChatMessageIntoDB(isFromCurrentUser: false, message: message)
+            if message.elementID != nil {
+                let chatMessage = DBManager.shared.getChatMessageWithMessageId(meesageId: message.elementID!)
+                if chatMessage == nil {
+                    DBManager.shared.addNewChatMessageIntoDB(message: message)
+                } else {
+                    if message.chatState != nil && message.chatState == XMPPMessage.ChatState.active {
+                        print("Message Read")
+                        chatMessage?.deliveryStatus = Constants.MessageDeliveryStatus.Read.rawValue
+                        try! DBManager.shared.context?.save()
+                   }
+                }
+            } else {
+                DBManager.shared.addNewChatMessageIntoDB(message: message)
+            }
         }
     }
     
@@ -169,7 +182,13 @@ class ChatManager: NSObject,XMPPStreamDelegate,XMPPRosterDelegate {
         print("Message sent\n", message)
         print(message)
         DispatchQueue.main.async {
-            DBManager.shared.addNewChatMessageIntoDB(isFromCurrentUser: true, message: message)
+            if message.elementID != nil {
+                let chatMessage = DBManager.shared.getChatMessageWithMessageId(meesageId: message.elementID!)
+                if chatMessage?.deliveryStatus != Constants.MessageDeliveryStatus.Read.rawValue {
+                    chatMessage?.deliveryStatus = Constants.MessageDeliveryStatus.Delivered.rawValue
+                    try! DBManager.shared.context?.save()
+                }
+            }
         }
     }
     
@@ -215,11 +234,30 @@ class ChatManager: NSObject,XMPPStreamDelegate,XMPPRosterDelegate {
     
     // Send Message
     func sendTextMessageToUser(jid:String, body: String) {
+        let messageID = UUID().uuidString
+        let receivedElement = XMLElement(name: "received", xmlns: "urn:xmpp:receipts")
+        receivedElement.addAttribute(withName: "id", stringValue: messageID)
         let msg = XMPPMessage(name: "message")//(type: "chat", to: user)
         msg.addAttribute(withName: "type", stringValue: "chat")
         msg.addAttribute(withName: "to", stringValue: jid)
+        msg.addAttribute(withName: "from", stringValue: ChatManager.shared.currentUserName!)
+        msg.addAttribute(withName: "id", stringValue: messageID)
+        msg.addChatState(XMPPMessage.ChatState.inactive)
         msg.addBody(body)
+        DBManager.shared.addSendingMessageIntoDB(messageId: messageID, message: msg)
         xmppStream.send(msg)
     }
 
+    // Read message
+    func sendTextMessageAsRead(message: UserChatMessage) {
+        let msg = XMPPMessage(name: "message")//(type: "chat", to: user)
+        msg.addAttribute(withName: "type", stringValue: "chat")
+        msg.addAttribute(withName: "id", stringValue: message.messageId!)
+        msg.addAttribute(withName: "to", stringValue: message.fromUser!)
+        msg.addChatState(XMPPMessage.ChatState.active)
+        xmppStream.send(msg)
+
+        message.deliveryStatus = Constants.MessageDeliveryStatus.Read.rawValue
+        try! DBManager.shared.context?.save()
+    }
 }

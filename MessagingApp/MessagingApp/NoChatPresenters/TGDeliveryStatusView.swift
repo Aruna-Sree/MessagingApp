@@ -31,7 +31,7 @@ class TGDeliveryStatusView: UIView {
     var checkmark1ImageView = UIImageView(image: Constant.checkmark1Image)
     var checkmark2ImageView = UIImageView(image: Constant.checkmark2Image)
     
-    var deliveryStatus: MessageDeliveryStatus = .Idle {
+    var deliveryStatus: Constants.MessageDeliveryStatus = .Idle {
         didSet {
             updateUI()
         }
@@ -56,6 +56,8 @@ class TGDeliveryStatusView: UIView {
     }
     
     private func updateUI() {
+        checkmark1ImageView.image = Constant.checkmark1Image
+        checkmark2ImageView.image = Constant.checkmark2Image
         if deliveryStatus == .Delivering {
             clockView.isHidden = false
             clockView.startAnimating()
@@ -65,12 +67,14 @@ class TGDeliveryStatusView: UIView {
             clockView.stopAnimating()
             clockView.isHidden = true
             checkmark1ImageView.isHidden = false
-            checkmark2ImageView.isHidden = true
+            checkmark2ImageView.isHidden = false
         } else if (deliveryStatus == .Read) {
             clockView.stopAnimating()
             clockView.isHidden = true
             checkmark1ImageView.isHidden = false
             checkmark2ImageView.isHidden = false
+            checkmark1ImageView.image = Constant.readCheckmark1Image
+            checkmark2ImageView.image = Constant.readCheckmark2Image
         } else {
             clockView.stopAnimating()
             clockView.isHidden = true
@@ -82,6 +86,8 @@ class TGDeliveryStatusView: UIView {
     struct Constant {
         static let checkmark1Image = UIImage(named: "TGMessageCheckmark1")!
         static let checkmark2Image = UIImage(named: "TGMessageCheckmark2")!
+        static let readCheckmark1Image = UIImage(named: "ReadMessageCheckmark1")!
+        static let readCheckmark2Image = UIImage(named: "ReadMessageCheckmark2")!
     }
     
 }

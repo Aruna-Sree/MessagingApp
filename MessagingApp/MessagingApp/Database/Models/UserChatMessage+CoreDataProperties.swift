@@ -17,14 +17,12 @@ extension UserChatMessage {
         return NSFetchRequest<UserChatMessage>(entityName: "UserChatMessage")
     }
 
-    @NSManaged public var messageId: String?
-    @NSManaged public var message: String?
-    @NSManaged public var receivedDate: NSDate?
-    @NSManaged public var isRead: Bool
+    @NSManaged public var deliveryStatus: Int16
     @NSManaged public var fromUser: String?
-    @NSManaged public var toUser: String?
-    @NSManaged public var deliverStatus: String?
-    @NSManaged public var sentDate: NSDate?
     @NSManaged public var isOutgoing: Bool
-}
+    @NSManaged public var message: String?
+    @NSManaged public var messageId: String?
+    @NSManaged public var date: NSDate?
+    @NSManaged public var toUser: String?
 
+}

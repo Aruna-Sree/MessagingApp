@@ -22,8 +22,8 @@
 		9A21EDEA215A8FB80042F917 /* TGSystemMessageCellLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A21EDDD215A8FB80042F917 /* TGSystemMessageCellLayout.swift */; };
 		9A21EDEB215A8FB80042F917 /* TGTextMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A21EDDE215A8FB80042F917 /* TGTextMessageCell.swift */; };
 		9A21EDEC215A8FB80042F917 /* TGClockProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A21EDDF215A8FB80042F917 /* TGClockProgressView.swift */; };
-		9A21EDEF215A91BB0042F917 /* UserChatMessage+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A21EDED215A91BB0042F917 /* UserChatMessage+CoreDataClass.swift */; };
-		9A21EDF0215A91BB0042F917 /* UserChatMessage+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A21EDEE215A91BB0042F917 /* UserChatMessage+CoreDataProperties.swift */; };
+		9A26B20121650D6E00B0AE13 /* UserChatMessage+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A26B1FF21650D6E00B0AE13 /* UserChatMessage+CoreDataClass.swift */; };
+		9A26B20221650D6E00B0AE13 /* UserChatMessage+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A26B20021650D6E00B0AE13 /* UserChatMessage+CoreDataProperties.swift */; };
 		9A4629082159E71600A052F1 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4629072159E71600A052F1 /* AppDelegate.swift */; };
 		9A46290A2159E71600A052F1 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4629092159E71600A052F1 /* ViewController.swift */; };
 		9A46290D2159E71600A052F1 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A46290B2159E71600A052F1 /* Main.storyboard */; };
@@ -68,8 +68,8 @@
 		9A21EDDD215A8FB80042F917 /* TGSystemMessageCellLayout.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TGSystemMessageCellLayout.swift; sourceTree = "<group>"; };
 		9A21EDDE215A8FB80042F917 /* TGTextMessageCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TGTextMessageCell.swift; sourceTree = "<group>"; };
 		9A21EDDF215A8FB80042F917 /* TGClockProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TGClockProgressView.swift; sourceTree = "<group>"; };
-		9A21EDED215A91BB0042F917 /* UserChatMessage+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserChatMessage+CoreDataClass.swift"; sourceTree = "<group>"; };
-		9A21EDEE215A91BB0042F917 /* UserChatMessage+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserChatMessage+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		9A26B1FF21650D6E00B0AE13 /* UserChatMessage+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserChatMessage+CoreDataClass.swift"; sourceTree = "<group>"; };
+		9A26B20021650D6E00B0AE13 /* UserChatMessage+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UserChatMessage+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		9A4629042159E71600A052F1 /* MessagingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MessagingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A4629072159E71600A052F1 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9A4629092159E71600A052F1 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -213,8 +213,8 @@
 		9A4629382159EF6B00A052F1 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				9A21EDED215A91BB0042F917 /* UserChatMessage+CoreDataClass.swift */,
-				9A21EDEE215A91BB0042F917 /* UserChatMessage+CoreDataProperties.swift */,
+				9A26B1FF21650D6E00B0AE13 /* UserChatMessage+CoreDataClass.swift */,
+				9A26B20021650D6E00B0AE13 /* UserChatMessage+CoreDataProperties.swift */,
 				9A4629332159EE7200A052F1 /* User+CoreDataClass.swift */,
 				9A4629342159EE7200A052F1 /* User+CoreDataProperties.swift */,
 			);
@@ -431,6 +431,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A26B20221650D6E00B0AE13 /* UserChatMessage+CoreDataProperties.swift in Sources */,
 				9A46293A2159F25200A052F1 /* LoginViewController.swift in Sources */,
 				9A21EDCD215A8EC20042F917 /* Chat.swift in Sources */,
 				9A462940215A0AD900A052F1 /* ChatsTableViewCell.swift in Sources */,
@@ -443,14 +444,13 @@
 				9A21EDE9215A8FB80042F917 /* TGDeliveryStatusView.swift in Sources */,
 				9A462947215A1A6D00A052F1 /* DBManager.swift in Sources */,
 				9A4629352159EE7200A052F1 /* User+CoreDataClass.swift in Sources */,
-				9A21EDF0215A91BB0042F917 /* UserChatMessage+CoreDataProperties.swift in Sources */,
 				9A21EDE5215A8FB80042F917 /* TGDateMessageCell.swift in Sources */,
 				9A21EDE3215A8FB80042F917 /* TGChatInputTextPanel.swift in Sources */,
 				9A21EDEB215A8FB80042F917 /* TGTextMessageCell.swift in Sources */,
-				9A21EDEF215A91BB0042F917 /* UserChatMessage+CoreDataClass.swift in Sources */,
 				9A21EDCF215A8ECC0042F917 /* Message.swift in Sources */,
 				9A46293D2159F9D000A052F1 /* Constants.swift in Sources */,
 				9A21EDE8215A8FB80042F917 /* TGDateMessageCellLayout.swift in Sources */,
+				9A26B20121650D6E00B0AE13 /* UserChatMessage+CoreDataClass.swift in Sources */,
 				9A21EDE6215A8FB80042F917 /* TGBaseMessageCellLayout.swift in Sources */,
 				9A21EDE1215A8FB80042F917 /* TGBaseMessageCell.swift in Sources */,
 				9A21EDEC215A8FB80042F917 /* TGClockProgressView.swift in Sources */,

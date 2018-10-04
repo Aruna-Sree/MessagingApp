@@ -22,4 +22,11 @@ class Constants: NSObject {
         static let userName = "userName"
         static let password = "password"
     }
+    enum MessageDeliveryStatus : Int16 {
+        case Idle = 0
+        case Delivering
+        case Delivered
+        case Failure
+        case Read
+    }
 }

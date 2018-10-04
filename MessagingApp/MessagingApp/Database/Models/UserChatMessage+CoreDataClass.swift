@@ -13,7 +13,6 @@ import NoChat
 
 @objc(UserChatMessage)
 public class UserChatMessage: NSManagedObject, NOCChatItem {
-    var deliveryStatus : MessageDeliveryStatus = .Delivered
     public func uniqueIdentifier() -> String {
         return self.messageId!
     }
@@ -22,3 +21,4 @@ public class UserChatMessage: NSManagedObject, NOCChatItem {
         return "Text"
     }
 }
+

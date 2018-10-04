@@ -124,7 +124,6 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
         let singleController = ChatViewController()
         singleController.fromUser = user
         self.navigationController?.pushViewController(singleController, animated: true)
-//        ChatManager.shared.sendTextMessageToUser(jid: user.jid!, body: "Message from Aruna")
     }
     
     func getLastMessageTimeInString(date: NSDate?) -> String {

@@ -84,7 +84,7 @@ class TGTextMessageCell: TGBaseMessageCell {
             timeLabel.attributedText = cellLayout.attributedTime
             
             deliveryStatusView.frame = cellLayout.deliveryStatusViewFrame
-            deliveryStatusView.deliveryStatus = cellLayout.message.deliveryStatus as! MessageDeliveryStatus
+            deliveryStatusView.deliveryStatus = Constants.MessageDeliveryStatus(rawValue: cellLayout.message.deliveryStatus)!
         }
     }
     
